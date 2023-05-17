@@ -1,0 +1,3 @@
+/home/przemo/Desktop/GL-cpp-training/build/CMakeFiles/out.dir
+/home/przemo/Desktop/GL-cpp-training/build/CMakeFiles/edit_cache.dir
+/home/przemo/Desktop/GL-cpp-training/build/CMakeFiles/rebuild_cache.dir
