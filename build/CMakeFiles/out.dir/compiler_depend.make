@@ -369,8 +369,15 @@ CMakeFiles/out.dir/mystring.cpp.o: /home/przemo/Desktop/GL-cpp-training/mystring
   /usr/include/c++/12/bits/ostream.tcc \
   /usr/include/c++/12/istream \
   /usr/include/c++/12/bits/istream.tcc \
+  /usr/include/c++/12/cstring \
+  /usr/include/string.h \
+  /usr/include/strings.h \
   /home/przemo/Desktop/GL-cpp-training/mystring.h
 
+
+/usr/include/string.h:
+
+/usr/include/c++/12/cstring:
 
 /home/przemo/Desktop/GL-cpp-training/mystring.cpp:
 
@@ -673,6 +680,8 @@ CMakeFiles/out.dir/mystring.cpp.o: /home/przemo/Desktop/GL-cpp-training/mystring
 /usr/include/x86_64-linux-gnu/bits/struct_mutex.h:
 
 /usr/include/c++/12/initializer_list:
+
+/usr/include/strings.h:
 
 /usr/include/x86_64-linux-gnu/c++/12/bits/atomic_word.h:
 

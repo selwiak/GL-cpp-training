@@ -3,12 +3,12 @@
 using namespace std;
 
 class String {
-    string text;
+    char* text;
     
     public:
     String();
-    String(string);
+    String(char* str);
     ~String();
-    string* toString();
+    char** toString();
     friend ostream & operator<< (ostream& os, const String &s);
 };
