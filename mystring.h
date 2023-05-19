@@ -1,14 +1,13 @@
 #include <iostream>
 
-using namespace std;
-
 class String {
+    private:
     char* text;
     
     public:
     String();
     String(char* str);
     ~String();
-    char** toString();
-    friend ostream & operator<< (ostream& os, const String &s);
+    const char* toString();
+    friend std::ostream & operator<< (std::ostream& os, const String &s);
 };
