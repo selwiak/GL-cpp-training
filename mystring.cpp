@@ -29,6 +29,28 @@ String::String(char* str)
     }
 }
 
+//copy constructor
+String::String(const String &str)
+{
+    // get length of original string
+    text = new char[strlen(str.text) + 1];
+    // copy original string
+    strcpy(text, str.text);
+
+    cout << "Object copied: " << text << endl;
+}
+
+//move constructor
+String::String(String &&str)
+{
+    //copy data
+    text = str.text;
+    //clear original object
+    str.text = nullptr;
+
+    cout << "Object moved: " << text << endl;
+}
+
 String::~String()
 {
     delete text;
