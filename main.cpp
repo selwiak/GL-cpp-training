@@ -5,16 +5,15 @@ using namespace std;
 
 int main()
 {
-    String s1;
-
     char temp[] = "Hello";
+    char temp2[] = "world";
 
-    String s2{temp};
+
+    String s1{temp};
+    String s2{temp2};
 
     cout << endl << s1.toString() << endl;
     cout << endl << s2.toString() << endl;
-
-    cout<<s2;
     
     return 0;
 }

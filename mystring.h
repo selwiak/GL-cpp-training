@@ -8,6 +8,6 @@ class String {
     String();
     String(char* str);
     ~String();
-    const char* toString();
+    const char* toString() const;
     friend std::ostream & operator<< (std::ostream& os, const String &s);
 };

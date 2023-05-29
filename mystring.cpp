@@ -34,22 +34,9 @@ String::~String()
     delete text;
 }
 
-const char* String::toString()
-{
-    const char* temp = "";
-
-    // check if string is a nullptr
-    if (nullptr != text)
-    {   
-        //if string is not a nullptr return original string
-        temp = text;
-    }
-    else
-    {
-        //if string is a nullptr return empty string
-    }
-    
-    return temp;
+const char* String::toString() const
+{  
+    return text;
 }
 
 ostream & operator<< (ostream& os, const String &s) 
