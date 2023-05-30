@@ -1,8 +1,9 @@
 #include <iostream>
+#include <memory>
 
 class String {
     private:
-    char* text;
+    std::unique_ptr<char[]> text;
     
     public:
     String();
