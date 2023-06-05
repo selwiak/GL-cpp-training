@@ -56,3 +56,15 @@ ostream & operator<< (ostream& os, const String &s)
 {
    return os << s.text.get() << endl;
 }
+
+unsigned int stringLength(const String mystring)
+{
+    unsigned int count = 0;
+
+    while(mystring.text[count] !='\0')
+    {
+        count++;
+    }
+
+    return count; 
+}
