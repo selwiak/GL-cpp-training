@@ -21,38 +21,38 @@ String::String(char* str)
     else
     {
         // initial value given, copy it to string
-        text = new char[strlen(str) + 1];
-        strcpy(text, str);
+        text = make_unique<char[]>(strlen(str) + 1);
+        strcpy(text.get(), str);
         text[strlen(str)] = '\0';
 
-        cout << "Created object: " << text << endl;
+        cout << "Created object: " << text.get() << endl;
     }
 }
 
-String::~String()
+//copy constructor
+String::String(const String &str)
 {
-    delete text;
+    // get length of original string
+    text = make_unique<char[]>(strlen(str.text.get()) + 1);
+    // copy original string
+    strcpy(text.get(), str.text.get());
+
+    cout << "Object copied: " << text.get() << endl;
 }
 
-const char* String::toString()
-{
-    const char* temp = "";
+//move constructor
+String::String(String&& str) : text(std::move(str.text)) {
+    str.text = nullptr;
+}
 
-    // check if string is a nullptr
-    if (nullptr != text)
-    {   
-        //if string is not a nullptr return original string
-        temp = text;
-    }
-    else
-    {
-        //if string is a nullptr return empty string
-    }
-    
-    return temp;
+String::~String(){}
+
+const char* String::toString() const
+{  
+    return text.get();
 }
 
 ostream & operator<< (ostream& os, const String &s) 
 {
-   return os << s.text << endl;
+   return os << s.text.get() << endl;
 }
