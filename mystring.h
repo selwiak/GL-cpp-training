@@ -14,5 +14,5 @@ class String {
     ~String();
     const char* toString() const;
     friend std::ostream & operator<< (std::ostream& os, const String &s);
-    friend unsigned int stringLength(const String mystring);
+    friend unsigned int stringLength(char* const str);
 };
