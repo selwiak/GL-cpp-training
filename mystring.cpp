@@ -4,26 +4,6 @@
 
 using namespace std;
 
-// function to check string length
-unsigned int stringLength(char* const str)
-{
-    unsigned int count = 0;
-    
-    if(nullptr != str)
-    {
-        while(str[count] != '\0')
-        {
-            count++;
-        }
-    }
-    else
-    {
-        // nullptr
-    }
-    
-    return count; 
-}
-
 String::String()
 {
     text = nullptr;
@@ -41,7 +21,7 @@ String::String(char* str)
     else
     {
         // initial value given, copy it to string
-        size = stringLength(str) + 1;
+        size = strlen(str) + 1;
         text = make_unique<char[]>(size);
         //text = make_unique<char[]>(strlen(str) + 1);
         strcpy(text.get(), str);
@@ -86,4 +66,9 @@ const char* String::toString() const
 ostream & operator<< (ostream& os, const String &s) 
 {
    return os << s.text.get() << endl;
+}
+
+unsigned int String::length() const
+{  
+    return size;
 }
