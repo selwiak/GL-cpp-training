@@ -21,9 +21,11 @@ String::String(char* str)
     else
     {
         // initial value given, copy it to string
-        text = make_unique<char[]>(strlen(str) + 1);
+        size = strlen(str) + 1;
+        text = make_unique<char[]>(size);
+        //text = make_unique<char[]>(strlen(str) + 1);
         strcpy(text.get(), str);
-        text[strlen(str)] = '\0';
+        text[size] = '\0';
 
         cout << "Created object: " << text.get() << endl;
     }
@@ -32,16 +34,25 @@ String::String(char* str)
 //copy constructor
 String::String(const String &str)
 {
-    // get length of original string
-    text = make_unique<char[]>(strlen(str.text.get()) + 1);
-    // copy original string
-    strcpy(text.get(), str.text.get());
+    if(&str != nullptr)
+    {
+        // get length of original string
+        size = str.size;
+        text = make_unique<char[]>(size);
+        // copy original string
+        strcpy(text.get(), str.text.get());
 
-    cout << "Object copied: " << text.get() << endl;
+        cout << "Object copied: " << text.get() << endl;
+    }
+    else
+    {
+        //
+    }
 }
 
 //move constructor
 String::String(String&& str) : text(std::move(str.text)) {
+    size = str.size;
     str.text = nullptr;
 }
 
@@ -55,4 +66,9 @@ const char* String::toString() const
 ostream & operator<< (ostream& os, const String &s) 
 {
    return os << s.text.get() << endl;
+}
+
+unsigned int String::length() const
+{  
+    return size;
 }
