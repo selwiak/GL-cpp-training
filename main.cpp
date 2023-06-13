@@ -29,5 +29,9 @@ int main()
     cout << endl << "s1 text: " << s1.toString() << endl;
     cout << endl << "s1 length: " << s1.length() << endl;
 
+    cout << endl << "s1 append s3: " << s1.append(s3) << endl;
+    cout << endl << "s1: " << s1 << endl;
+    cout << endl << "s1 length: " << s1.length() << endl;
+
     return 0;
 }

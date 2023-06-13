@@ -89,22 +89,37 @@ String & String::operator=(const String &obj)
 //function which insert substring in specified position
 const char *String::insert(const String &str, size_t pos)
 {
-    const char *result = nullptr;
+    char *result = nullptr;
 
     //check if given position is inside object string
     if((pos < (this->length())) && (pos > 0))
     {   
         //start from given position and replace characters till end of the string
-        for(int i = pos, j = 0; i <= (this->size); i++,j++)
+        for(int i = pos, j = 0; i <= (this->length()); i++,j++)
         {
             this->text[i+(str.length()-1)] = this->text[i];
             this->text[i] = str.text[j];
         }
         //update size of current object, -1 to remove one '/0'
-        this->size = this->size + (str.length() - 1);
+        this->size = this->length() + (str.length() - 1);
 
         result = text.get();
     }
 
     return result;
+}
+
+//function which append strings
+const char *String::append(const String &str) 
+{
+    //go to end of object string(ignore '/0' at end of object) and add new chars to it
+    for(int i = (this->length() - 1), j = 0; i < (this->length() + str.length()); i++, j++)
+    {
+        this->text[i] = str.text[j];
+    }
+
+    //update size of current object, -1 to remove one '/0'
+    this->size = this->size + (str.length() - 1);
+    
+    return text.get();
 }
