@@ -8,11 +8,13 @@ class String {
     
     public:
     String();
-    String(char* str);
+    String(char *str);
     String(const String &str);
     String(String &&str);
     ~String();
-    const char* toString() const;
+    const char *toString() const;
     unsigned int length() const;
-    friend std::ostream & operator<< (std::ostream& os, const String &s);
+    const char *insert(const String& str, size_t pos);
+    friend std::ostream &operator<<(std::ostream &os, const String &s);
+    String &operator=(const String &rhs);
 };

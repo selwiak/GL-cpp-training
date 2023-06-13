@@ -20,6 +20,14 @@ int main()
     cout << endl << s3.toString() << endl;
     cout << endl << s4.toString() << endl;
 
-    
+
+    s1 = s4;
+    cout << endl << "copy test: " << s1 << endl;
+    cout << endl << "s3 test: " << s3 << endl;
+
+    cout << endl << "insert test: " << s1.insert(s3, 2) << endl;
+    cout << endl << "s1 text: " << s1.toString() << endl;
+    cout << endl << "s1 length: " << s1.length() << endl;
+
     return 0;
 }
