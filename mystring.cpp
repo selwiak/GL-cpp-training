@@ -123,3 +123,24 @@ const char *String::append(const String &str)
     
     return text.get();
 }
+
+//function which prepend string
+const char *String::prepend(const String &str) 
+{
+    //move current object to the left to create space for a new string
+    for(int i = (this->length() + (str.length() - 1)), j = this->length(); i > 0; i--,j--)
+    {
+        this->text[i] = this->text[j]; 
+    }
+
+    //copy new string to created space
+    for(int i = 0; i < (str.length() - 1); i++)
+    {
+        this->text[i] = str.text[i];
+    }
+
+    //update size of current object, -1 to remove one '/0'
+    this->size = this->length() + (str.length() - 1);
+    
+    return text.get();
+}

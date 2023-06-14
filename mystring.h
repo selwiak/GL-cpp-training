@@ -16,6 +16,7 @@ class String {
     unsigned int length() const;
     const char *insert(const String &str, size_t pos);
     const char *append(const String &str);
+    const char *prepend(const String &str);
     friend std::ostream &operator<<(std::ostream &os, const String &s);
     String &operator=(const String &rhs);
 };
