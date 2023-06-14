@@ -39,5 +39,13 @@ int main()
     cout << endl << "s6: " << s6 << endl;
     cout << endl << "s6 length: " << s6.length() << endl;
 
+    cout << endl << "s5: " << s5 << endl;
+    cout << endl << "s5 length: " << s5.length() << endl;
+    s5 = s5 + s5;
+    cout << endl << "s5: " << s5 << endl;
+    cout << endl << "s5 length: " << s5.length() << endl;
+    
+    cout << endl << "fromInt: " << fromInt(2147483647).length() << endl;
+
     return 0;
 }

@@ -113,7 +113,7 @@ const char *String::insert(const String &str, size_t pos)
 const char *String::append(const String &str) 
 {
     //go to end of object string(ignore '/0' at end of object) and add new chars to it
-    for(int i = (this->length() - 1), j = 0; i < (this->length() + str.length()); i++, j++)
+    for(int i = (this->length() - 1), j = 0; i < (this->length() + str.length() -2); i++, j++)
     {
         this->text[i] = str.text[j];
     }
@@ -143,4 +143,61 @@ const char *String::prepend(const String &str)
     this->size = this->length() + (str.length() - 1);
     
     return text.get();
+}
+
+//overloading plus operator
+String & String::operator+(const String &obj)
+{
+    this->append(obj);
+
+    return *this;
+}
+
+//function which convert int to String object
+String fromInt(int value)
+{   
+    //variable to store int length
+    int length = 0;
+    //variable to copy int value
+    int temp = value;
+
+    //check if value is negative, if it is replace temp with positive
+    if(temp < 0)
+    {
+        temp = -temp;
+        length++;
+    }
+
+    //get length of int
+    while(temp > 0) 
+    {
+        temp = temp/10;
+        length++;
+    }
+    
+    //create char arraty to store converted int
+    char text[length];
+
+    //add minus at the beginning if value is negative
+    if(value < 0)
+    {
+        text[0] = '-';
+        value = -value;
+    }
+
+    //add '\0' at the end, and decrease length 
+    text[length] = '\0';
+    length--;
+
+    while(value > 0) 
+    {
+        text[length] = '0' + (value % 10);
+        value = value/10;
+        length--;
+    }
+
+    //create object to return
+    String string{text};
+
+    return string;
 }

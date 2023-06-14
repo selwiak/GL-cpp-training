@@ -19,4 +19,7 @@ class String {
     const char *prepend(const String &str);
     friend std::ostream &operator<<(std::ostream &os, const String &s);
     String &operator=(const String &rhs);
+    String &operator+(const String& rhs);
 };
+
+String fromInt(int value);
