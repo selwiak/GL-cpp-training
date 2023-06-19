@@ -92,16 +92,16 @@ const char *String::insert(const String &str, size_t pos)
     char *result = nullptr;
 
     //check if given position is inside object string
-    if((pos < (this->length())) && (pos > 0))
+    if((pos < (length())) && (pos > 0))
     {   
         //start from given position and replace characters till end of the string
-        for(int i = pos, j = 0; i <= (this->length()); i++,j++)
+        for(int i = pos, j = 0; i <= (length()); i++,j++)
         {
-            this->text[i+(str.length()-1)] = this->text[i];
-            this->text[i] = str.text[j];
+            text[i+(str.length()-1)] = text[i];
+            text[i] = str.text[j];
         }
         //update size of current object, -1 to remove one '/0'
-        this->size = this->length() + (str.length() - 1);
+        size = length() + (str.length() - 1);
 
         result = text.get();
     }
@@ -113,13 +113,13 @@ const char *String::insert(const String &str, size_t pos)
 const char *String::append(const String &str) 
 {
     //go to end of object string(ignore '/0' at end of object) and add new chars to it
-    for(int i = (this->length() - 1), j = 0; i < (this->length() + str.length() -2); i++, j++)
+    for(int i = (length() - 1), j = 0; i < (length() + str.length() -2); i++, j++)
     {
-        this->text[i] = str.text[j];
+        text[i] = str.text[j];
     }
 
     //update size of current object, -1 to remove one '/0'
-    this->size = this->size + (str.length() - 1);
+    size = size + (str.length() - 1);
     
     return text.get();
 }
@@ -128,19 +128,19 @@ const char *String::append(const String &str)
 const char *String::prepend(const String &str) 
 {
     //move current object to the left to create space for a new string
-    for(int i = (this->length() + (str.length() - 1)), j = this->length(); i > 0; i--,j--)
+    for(int i = (length() + (str.length() - 1)), j = length(); i > 0; i--,j--)
     {
-        this->text[i] = this->text[j]; 
+        text[i] = text[j]; 
     }
 
     //copy new string to created space
     for(int i = 0; i < (str.length() - 1); i++)
     {
-        this->text[i] = str.text[i];
+        text[i] = str.text[i];
     }
 
     //update size of current object, -1 to remove one '/0'
-    this->size = this->length() + (str.length() - 1);
+    size = length() + (str.length() - 1);
     
     return text.get();
 }
@@ -148,7 +148,7 @@ const char *String::prepend(const String &str)
 //overloading plus operator
 String & String::operator+(const String &obj)
 {
-    this->append(obj);
+    append(obj);
 
     return *this;
 }
