@@ -80,7 +80,7 @@ String & String::operator=(const String &obj)
     if(this != &obj)
     {
         size = obj.size;
-        strcpy(text.get(), obj.text.get());
+        strncpy(text.get(), obj.text.get(), obj.length());
     }
 
     return *this;
