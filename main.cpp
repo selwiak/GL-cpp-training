@@ -45,7 +45,7 @@ int main()
     cout << endl << "s5: " << s5 << endl;
     cout << endl << "s5 length: " << s5.length() << endl;
     
-    cout << endl << "fromInt: " << fromInt(2147483647).length() << endl;
+    cout << endl << "fromInt: " << String::fromInt(2147483647).length() << endl;
 
     return 0;
 }

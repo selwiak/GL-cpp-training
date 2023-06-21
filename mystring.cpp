@@ -150,7 +150,7 @@ String & String::operator+(const String &obj)
 }
 
 //function which convert int to String object
-String fromInt(int value)
+String String::fromInt(int value)
 {   
     //variable to store int length
     int length = 0;

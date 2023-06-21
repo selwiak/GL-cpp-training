@@ -20,6 +20,5 @@ class String {
     friend std::ostream &operator<<(std::ostream &os, const String &s);
     String &operator=(const String &rhs);
     String &operator+(const String& rhs);
+    static String fromInt(int value);
 };
-
-String fromInt(int value);
