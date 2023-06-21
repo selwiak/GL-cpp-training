@@ -14,9 +14,9 @@ class String {
     ~String();
     const char *toString() const;
     unsigned int length() const;
-    const char *insert(const String &str, size_t pos);
-    const char *append(const String &str);
-    const char *prepend(const String &str);
+    const String &insert(const String &str, size_t pos);
+    const String &append(const String &str);
+    const String &prepend(const String &str);
     friend std::ostream &operator<<(std::ostream &os, const String &s);
     String &operator=(const String &rhs);
     String &operator+(const String& rhs);

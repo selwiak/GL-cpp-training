@@ -87,10 +87,8 @@ String & String::operator=(const String &obj)
 }
 
 //function which insert substring in specified position
-const char *String::insert(const String &str, size_t pos)
+const String & String::insert(const String &str, size_t pos)
 {
-    char *result = nullptr;
-
     //check if given position is inside object string
     if((pos < (length())) && (pos > 0))
     {   
@@ -102,15 +100,13 @@ const char *String::insert(const String &str, size_t pos)
         }
         //update size of current object, -1 to remove one '/0'
         size = length() + (str.length() - 1);
-
-        result = text.get();
     }
 
-    return result;
+    return *this;
 }
 
 //function which append strings
-const char *String::append(const String &str) 
+const String & String::append(const String &str) 
 {
     //go to end of object string(ignore '/0' at end of object) and add new chars to it
     for(int i = (length() - 1), j = 0; i < (length() + str.length() -2); i++, j++)
@@ -121,11 +117,11 @@ const char *String::append(const String &str)
     //update size of current object, -1 to remove one '/0'
     size = size + (str.length() - 1);
     
-    return text.get();
+    return *this;
 }
 
 //function which prepend string
-const char *String::prepend(const String &str) 
+const String & String::prepend(const String &str) 
 {
     //move current object to the left to create space for a new string
     for(int i = (length() + (str.length() - 1)), j = length(); i > 0; i--,j--)
@@ -142,7 +138,7 @@ const char *String::prepend(const String &str)
     //update size of current object, -1 to remove one '/0'
     size = length() + (str.length() - 1);
     
-    return text.get();
+    return *this;
 }
 
 //overloading plus operator
