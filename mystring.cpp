@@ -4,6 +4,9 @@
 
 using namespace std;
 
+// StringInterface virtual destructor
+StringInterface::~StringInterface() {}
+
 String::String()
 {
     text = nullptr;
@@ -63,9 +66,9 @@ const char *String::toString() const
     return text.get();
 }
 
-ostream & operator<< (ostream& os, const String &s) 
-{
-   return os << s.text.get() << endl;
+ostream & operator<<(ostream& os, const String &s) 
+{  
+    return os << s.text.get() << endl;
 }
 
 unsigned int String::length() const
@@ -74,11 +77,14 @@ unsigned int String::length() const
 }
 
 //overloading assigment operator
-String & String::operator=(const String &obj)
+StringInterface & String::operator=(const StringInterface &obj)
 {
     //guard self assignment
     if(this != &obj)
     {
+        // cast StringInterface to String
+        const String& obj = static_cast<const String&>(obj);
+
         size = obj.size;
         strncpy(text.get(), obj.text.get(), obj.length());
     }
@@ -87,11 +93,14 @@ String & String::operator=(const String &obj)
 }
 
 //function which insert substring in specified position
-const String & String::insert(const String &str, size_t pos)
+const String & String::insert(const StringInterface &otherStr, size_t pos)
 {
     //check if given position is inside object string
     if((pos < (length())) && (pos > 0))
     {   
+        // cast StringInterface to String
+        const String& str = static_cast<const String&>(otherStr);
+
         //start from given position and replace characters till end of the string
         for(int i = pos, j = 0; i <= (length()); i++,j++)
         {
@@ -106,12 +115,15 @@ const String & String::insert(const String &str, size_t pos)
 }
 
 //function which append strings
-const String & String::append(const String &str) 
+const String & String::append(const StringInterface &str) 
 {
+    // cast StringInterface to String
+    const String& obj = static_cast<const String&>(str);
+
     //go to end of object string(ignore '/0' at end of object) and add new chars to it
     for(int i = (length() - 1), j = 0; i < (length() + str.length() -2); i++, j++)
     {
-        text[i] = str.text[j];
+        text[i] = obj.text[j];
     }
 
     //update size of current object, -1 to remove one '/0'
@@ -121,8 +133,11 @@ const String & String::append(const String &str)
 }
 
 //function which prepend string
-const String & String::prepend(const String &str) 
+const String & String::prepend(const StringInterface &str) 
 {
+    // cast StringInterface to String
+    const String& obj = static_cast<const String&>(str);
+
     //move current object to the left to create space for a new string
     for(int i = (length() + (str.length() - 1)), j = length(); i > 0; i--,j--)
     {
@@ -132,7 +147,7 @@ const String & String::prepend(const String &str)
     //copy new string to created space
     for(int i = 0; i < (str.length() - 1); i++)
     {
-        text[i] = str.text[i];
+        text[i] = obj.text[i];
     }
 
     //update size of current object, -1 to remove one '/0'
@@ -142,7 +157,7 @@ const String & String::prepend(const String &str)
 }
 
 //overloading plus operator
-String & String::operator+(const String &obj)
+StringInterface & String::operator+(const StringInterface &obj)
 {
     append(obj);
 
@@ -196,4 +211,17 @@ String String::fromInt(int value)
     String string{text};
 
     return string;
+}
+
+//overloading assigment operator
+String & String::operator=(const String &obj)
+{
+    //guard self assignment
+    if(this != &obj)
+    {
+        size = obj.size;
+        strncpy(text.get(), obj.text.get(), obj.length());
+    }
+
+    return *this;
 }
