@@ -4,9 +4,6 @@
 
 using namespace std;
 
-// StringInterface virtual destructor
-StringInterface::~StringInterface() {}
-
 String::String()
 {
     text = nullptr;
@@ -76,29 +73,13 @@ unsigned int String::length() const
     return size;
 }
 
-//overloading assigment operator
-StringInterface & String::operator=(const StringInterface &obj)
-{
-    //guard self assignment
-    if(this != &obj)
-    {
-        // cast StringInterface to String
-        const String& obj = static_cast<const String&>(obj);
-
-        size = obj.size;
-        strncpy(text.get(), obj.text.get(), obj.length());
-    }
-
-    return *this;
-}
-
 //function which insert substring in specified position
-const String & String::insert(const StringInterface &otherStr, size_t pos)
+const String & String::insert(const IString &otherStr, size_t pos)
 {
     //check if given position is inside object string
     if((pos < (length())) && (pos > 0))
     {   
-        // cast StringInterface to String
+        // cast IString to String
         const String& str = static_cast<const String&>(otherStr);
 
         //start from given position and replace characters till end of the string
@@ -115,9 +96,9 @@ const String & String::insert(const StringInterface &otherStr, size_t pos)
 }
 
 //function which append strings
-const String & String::append(const StringInterface &str) 
+const String & String::append(const IString &str) 
 {
-    // cast StringInterface to String
+    // cast IString to String
     const String& obj = static_cast<const String&>(str);
 
     //go to end of object string(ignore '/0' at end of object) and add new chars to it
@@ -133,9 +114,9 @@ const String & String::append(const StringInterface &str)
 }
 
 //function which prepend string
-const String & String::prepend(const StringInterface &str) 
+const String & String::prepend(const IString &str) 
 {
-    // cast StringInterface to String
+    // cast IString to String
     const String& obj = static_cast<const String&>(str);
 
     //move current object to the left to create space for a new string
@@ -153,14 +134,6 @@ const String & String::prepend(const StringInterface &str)
     //update size of current object, -1 to remove one '/0'
     size = length() + (str.length() - 1);
     
-    return *this;
-}
-
-//overloading plus operator
-StringInterface & String::operator+(const StringInterface &obj)
-{
-    append(obj);
-
     return *this;
 }
 
@@ -222,6 +195,30 @@ String & String::operator=(const String &obj)
         size = obj.size;
         strncpy(text.get(), obj.text.get(), obj.length());
     }
+
+    return *this;
+}
+
+//overloading assigment operator
+IString & String::operator=(const IString &obj)
+{
+    //guard self assignment
+    if(this != &obj)
+    {
+        // cast StringInterface to String
+        const String& obj = static_cast<const String&>(obj);
+
+        size = obj.size;
+        strncpy(text.get(), obj.text.get(), obj.length());
+    }
+
+    return *this;
+}
+
+//overloading plus operator
+IString & String::operator+(const IString &obj)
+{
+    append(obj);
 
     return *this;
 }
