@@ -63,10 +63,11 @@ const char *String::toString() const
     return text.get();
 }
 
-ostream & operator<<(ostream& os, const String &s) 
-{  
-    return os << s.text.get() << endl;
+void String::print(ostream &os) const  
+{
+    os << toString();
 }
+
 
 unsigned int String::length() const
 {  
@@ -200,7 +201,7 @@ String & String::operator=(const String &obj)
 }
 
 //overloading assigment operator
-IString & String::operator=(const IString &obj)
+String & String::operator=(const IString &obj)
 {
     //guard self assignment
     if(this != &obj)
@@ -216,7 +217,7 @@ IString & String::operator=(const IString &obj)
 }
 
 //overloading plus operator
-IString & String::operator+(const IString &obj)
+String & String::operator+(const IString &obj)
 {
     append(obj);
 

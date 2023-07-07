@@ -18,9 +18,9 @@ class String : public IString {
     const String &insert(const IString &str, size_t pos) override;
     const String &append(const IString &str) override;
     const String &prepend(const IString &str) override;
-    friend std::ostream &operator<<(std::ostream &os, const String &s);
-    IString &operator=(const IString &rhs) override;
-    IString &operator+(const IString& rhs) override;
+    String &operator=(const IString &rhs) override;
+    String &operator+(const IString& rhs) override;
     static String fromInt(int value);
     String &operator=(const String &rhs);
+    void print(std::ostream &os) const override;
 };
