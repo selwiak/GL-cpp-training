@@ -1,7 +1,8 @@
 #include <iostream>
 #include <memory>
+#include "IString.h"
 
-class String {
+class String : public IString {
     private:
     std::unique_ptr<char[]> text;
     unsigned int size = 0;
@@ -12,13 +13,14 @@ class String {
     String(const String &str);
     String(String &&str);
     ~String();
-    const char *toString() const;
-    unsigned int length() const;
-    const String &insert(const String &str, size_t pos);
-    const String &append(const String &str);
-    const String &prepend(const String &str);
-    friend std::ostream &operator<<(std::ostream &os, const String &s);
-    String &operator=(const String &rhs);
-    String &operator+(const String& rhs);
+    const char *toString() const override;
+    unsigned int length() const override;
+    const String &insert(const IString &str, size_t pos) override;
+    const String &append(const IString &str) override;
+    const String &prepend(const IString &str) override;
+    String &operator=(const IString &rhs) override;
+    String &operator+(const IString& rhs) override;
     static String fromInt(int value);
+    String &operator=(const String &rhs);
+    void print(std::ostream &os) const override;
 };
