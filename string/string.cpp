@@ -1,9 +1,9 @@
 #include <iostream>
-#include "IString.h"
+#include "string.h"
 
 namespace str
 {
-    std::ostream &operator<<(std::ostream &os, const IString &obj) 
+    std::ostream &operator<<(std::ostream &os, const string &obj) 
     {
         obj.print(os);
         return os;

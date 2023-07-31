@@ -77,12 +77,12 @@ namespace str
     }
 
     //function which insert substring in specified position
-    const String & String::insert(const IString &otherStr, size_t pos)
+    const String & String::insert(const string &otherStr, size_t pos)
     {
         //check if given position is inside object string
         if((pos < (length())) && (pos > 0))
         {   
-            // cast IString to String
+            // cast string to String
             const String& str = static_cast<const String&>(otherStr);
 
             //start from given position and replace characters till end of the string
@@ -99,9 +99,9 @@ namespace str
     }
 
     //function which append strings
-    const String & String::append(const IString &str) 
+    const String & String::append(const string &str) 
     {
-        // cast IString to String
+        // cast string to String
         const String& obj = static_cast<const String&>(str);
 
         //go to end of object string(ignore '/0' at end of object) and add new chars to it
@@ -117,9 +117,9 @@ namespace str
     }
 
     //function which prepend string
-    const String & String::prepend(const IString &str) 
+    const String & String::prepend(const string &str) 
     {
-        // cast IString to String
+        // cast string to String
         const String& obj = static_cast<const String&>(str);
 
         //move current object to the left to create space for a new string
@@ -203,7 +203,7 @@ namespace str
     }
 
     //overloading assigment operator
-    String & String::operator=(const IString &obj)
+    String & String::operator=(const string &obj)
     {
         //guard self assignment
         if(this != &obj)
@@ -219,7 +219,7 @@ namespace str
     }
 
     //overloading plus operator
-    String & String::operator+(const IString &obj)
+    String & String::operator+(const string &obj)
     {
         append(obj);
 
