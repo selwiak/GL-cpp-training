@@ -3,7 +3,7 @@
 
 #include "IEngine.h"
 
-class GasEngine : public Engine {
+class GasEngine final : public IEngine {
 public:
     GasEngine(int cylinders) : cylinders(cylinders) {}
 

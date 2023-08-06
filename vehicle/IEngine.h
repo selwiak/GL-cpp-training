@@ -2,14 +2,13 @@
 #define IENGINE_H
 
 #include <string>
-#include <memory> 
 
 // Engine interface
-class Engine {
+class IEngine {
 public:
     virtual std::string getFuelType() const = 0;
     virtual int getNumberOfCylinders() const = 0;
-    virtual ~Engine() = default;
+    virtual ~IEngine() = default;
 };
 
 #endif // IENGINE_H

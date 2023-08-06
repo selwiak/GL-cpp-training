@@ -2,13 +2,12 @@
 #define IGEAR_H
 
 #include <string>
-#include <memory>
 
 // Gear interface
-class Gear {
+class IGear {
 public:
     virtual std::string getGearType() const = 0;
-    virtual ~Gear() = default;
+    virtual ~IGear() = default;
 };
 
 #endif // IGEAR_H

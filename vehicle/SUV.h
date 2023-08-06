@@ -3,9 +3,9 @@
 
 #include "Car.h"
 
-class SUV : public Car {
+class SUV final: public Car {
 public:
-    SUV(Engine* engine, Gear* gear)
+    SUV(IEngine* engine, IGear* gear)
         : Car(engine, gear) {}
 
     std::string getCarType() const override {

@@ -3,7 +3,7 @@
 
 #include "IGear.h"
 
-class ManualGear : public Gear {
+class ManualGear final: public IGear {
 public:
     std::string getGearType() const override {
         return "Manual";
