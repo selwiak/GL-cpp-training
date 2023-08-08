@@ -5,8 +5,8 @@
 
 class Sedan final: public Car {
 public:
-    Sedan(IEngine* engine, IGear* gear)
-        : Car(engine, gear) {}
+    Sedan(IEngine* m_engine, IGear* m_gear)
+        : Car(m_engine, m_gear) {}
 
     std::string getCarType() const override {
         return "Sedan";

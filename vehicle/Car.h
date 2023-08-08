@@ -9,21 +9,21 @@
 // Car 
 class Car {
 public:
-    Car(IEngine* engine, IGear* gear)
-        : engine(engine), gear(gear) {}
+    Car(IEngine* m_engine, IGear* m_gear)
+        : m_engine(m_engine), m_gear(m_gear) {}
 
     virtual std::string getCarType() const = 0;
     const IEngine* getEngine() const {
-        return engine;
+        return m_engine;
     }
     const IGear* getGear() const {
-        return gear;
+        return m_gear;
     }
     virtual ~Car() {}
 
 protected:
-    IEngine* engine;
-    IGear* gear;
+    IEngine* m_engine;
+    IGear* m_gear;
 };
 
 #endif // ICAR_H
