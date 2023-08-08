@@ -1,3 +1,4 @@
+#include <memory>
 #include <iostream>
 #include "GasEngine.h"
 #include "DieselEngine.h"
@@ -9,15 +10,17 @@
 
 int main() {
     // Create engines and gears
-    GasEngine gasEngine(4);
-    DieselEngine dieselEngine(6);
-    ManualGear manualGear;
-    AutomaticGear automaticGear;
+    std::unique_ptr<IEngine> gasEnginePtr = std::make_unique<GasEngine>(4);
+    std::unique_ptr<IEngine> dieselEnginePtr = std::make_unique<DieselEngine>(6);
+    std::unique_ptr<IEngine> jeepdieselEnginePtr = std::make_unique<DieselEngine>(8);
+    std::unique_ptr<IGear> manualGearPtr = std::make_unique<ManualGear>();
+    std::unique_ptr<IGear> automaticGearPtr = std::make_unique<AutomaticGear>();
+    std::unique_ptr<IGear> jeepmanualGearPtr = std::make_unique<ManualGear>();
 
     // Create different types of cars
-    Sedan sedanCar(&gasEngine, &manualGear);
-    SUV suvCar(&dieselEngine, &automaticGear);
-    Jeep jeepCar(&dieselEngine, &manualGear);
+    Sedan sedanCar(std::move(gasEnginePtr), std::move(manualGearPtr));
+    SUV suvCar(std::move(dieselEnginePtr), std::move(automaticGearPtr));
+    Jeep jeepCar(std::move(jeepdieselEnginePtr), std::move(jeepmanualGearPtr));
 
     // Print car information
     std::cout << "Car type: " << sedanCar.getCarType() << std::endl;

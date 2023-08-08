@@ -9,21 +9,21 @@
 // Car 
 class Car {
 public:
-    Car(IEngine* m_engine, IGear* m_gear)
-        : m_engine(m_engine), m_gear(m_gear) {}
+    Car(std::unique_ptr<IEngine> p_engine, std::unique_ptr<IGear> p_gear)
+    : p_engine(std::move(p_engine)), p_gear(std::move(p_gear)) {}
 
     virtual std::string getCarType() const = 0;
-    const IEngine* getEngine() const {
-        return m_engine;
+    const IEngine *getEngine() const {
+        return p_engine.get();
     }
-    const IGear* getGear() const {
-        return m_gear;
+    const IGear *getGear() const {
+        return p_gear.get();
     }
     virtual ~Car() {}
 
 protected:
-    IEngine* m_engine;
-    IGear* m_gear;
+    std::unique_ptr<IEngine> p_engine;
+    std::unique_ptr<IGear> p_gear;
 };
 
 #endif // ICAR_H
