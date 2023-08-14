@@ -1,7 +1,6 @@
 #ifndef JEEP_H
 #define JEEP_H
 
-#include <memory>
 #include "Car.h"
 
 class Jeep final : public Car {

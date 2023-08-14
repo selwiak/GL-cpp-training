@@ -1,7 +1,6 @@
 #ifndef SEDAN_H
 #define SEDAN_H
 
-#include <memory>
 #include "Car.h"
 
 class Sedan final: public Car {

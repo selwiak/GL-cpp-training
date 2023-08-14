@@ -5,7 +5,7 @@
 
 class DieselEngine final : public IEngine {
 public:
-    DieselEngine(int m_cylinders) : m_cylinders(m_cylinders) {}
+    DieselEngine(int p_cylinders) : m_cylinders(p_cylinders) {}
 
     std::string getFuelType() const override {
         return "Diesel";

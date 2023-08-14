@@ -5,7 +5,7 @@
 
 class GasEngine final : public IEngine {
 public:
-    GasEngine(int m_cylinders) : m_cylinders(m_cylinders) {}
+    GasEngine(int p_cylinders) : m_cylinders(p_cylinders) {}
 
     std::string getFuelType() const override {
         return "Gas";

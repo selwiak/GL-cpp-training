@@ -1,4 +1,3 @@
-#include <memory>
 #include <iostream>
 #include "GasEngine.h"
 #include "DieselEngine.h"

@@ -1,7 +1,6 @@
 #ifndef SUV_H
 #define SUV_H
 
-#include <memory>
 #include "Car.h"
 
 class SUV final: public Car {
