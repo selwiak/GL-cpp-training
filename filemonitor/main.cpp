@@ -10,10 +10,9 @@ int main(int argc, char* argv[]) {
 
     std::string filePath = argv[1];
 
-    // Utwórz obiekt ConcreteFileMonitor
+    // creating object
     std::unique_ptr<IFileMonitor> monitor = std::make_unique<FileMonitor>(filePath);
 
-    // Rozpocznij monitorowanie
     monitor->startMonitoring();
 
     return 0;
