@@ -8,10 +8,9 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    std::string filePath = argv[1];
+    std::string const filePath = argv[1];
 
-    // creating object
-    std::unique_ptr<IFileMonitor> monitor = std::make_unique<FileMonitor>(filePath);
+    const auto monitor = std::make_unique<FileMonitor>(filePath);
 
     monitor->startMonitoring();
 
