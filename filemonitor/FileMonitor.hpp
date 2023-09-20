@@ -8,22 +8,21 @@
 #include <chrono>
 #include <thread>
 
-// Macro definition for time period 500
-#define TIMEPERIOD 500
-
 namespace fs = std::filesystem;
 
 class FileMonitor final : public IFileMonitor {
     public:
-        FileMonitor(const std::string& m_filePath) : m_filePath(m_filePath) {}
+        FileMonitor(const std::string& filePath) : m_filePath(filePath) {}
 
         void startMonitoring() override {
         // get last modification time
         auto lastModified = fs::last_write_time(m_filePath);
 
         while (true) {
+            // define time to wait
+            constexpr auto kTimePeriodMs{500};
             // wait till next modification time check
-            std::this_thread::sleep_for(std::chrono::milliseconds(TIMEPERIOD)); 
+            std::this_thread::sleep_for(std::chrono::milliseconds(kTimePeriodMs)); 
 
             // get last modification time
             auto const currentModified = fs::last_write_time(m_filePath);
