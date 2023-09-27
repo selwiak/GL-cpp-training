@@ -13,7 +13,7 @@ namespace fs = std::filesystem;
 
 class FileMonitor final : public IFileMonitor {
     public:
-        FileMonitor(const std::string& filePath, std::mutex& fileMutex) : m_filePath(filePath), m_fileMutex(fileMutex) {}
+        FileMonitor(const fs::path& filePath, std::mutex& fileMutex) : m_filePath(filePath), m_fileMutex(fileMutex) {}
 
         void startMonitoring() override {
             // get last modification time
@@ -54,7 +54,7 @@ class FileMonitor final : public IFileMonitor {
         }
 
     private:
-        fs::path m_filePath;
+        const fs::path& m_filePath;
         std::mutex& m_fileMutex;
 };
 

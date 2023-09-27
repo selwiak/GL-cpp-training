@@ -13,7 +13,7 @@ namespace fs = std::filesystem;
 
 class FileUpdater final : public IFileUpdater {
     public:
-        FileUpdater(const std::string& filePath, std::mutex& fileMutex) : m_filePath(filePath), m_fileMutex(fileMutex) {}
+        FileUpdater(const fs::path& filePath, std::mutex& fileMutex) : m_filePath(filePath), m_fileMutex(fileMutex) {}
 
         void startUpdating() override {
             // define time to wait
@@ -47,7 +47,7 @@ class FileUpdater final : public IFileUpdater {
         }
 
     private:
-        fs::path m_filePath;
+        const fs::path& m_filePath;
         std::mutex& m_fileMutex;
 };
 

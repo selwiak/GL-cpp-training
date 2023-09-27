@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    std::string const filePath = argv[1];
+    const fs::path filePath = argv[1];
     std::mutex fileMutex;
 
     // Create unique_ptrs to manage the lifetime of FileUpdater and FileMonitor objects
