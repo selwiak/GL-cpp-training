@@ -16,6 +16,8 @@ class FileUpdater final : public IFileUpdater {
         FileUpdater(const std::string& filePath) : m_filePath(filePath) {}
 
         void startUpdating() override {
+            // define time to wait
+            constexpr auto kTimePeriodS{1};
             // Open the file
             std::ofstream file(m_filePath, std::ios::app);
 
@@ -40,7 +42,7 @@ class FileUpdater final : public IFileUpdater {
                 m_fileMutex.unlock();
 
                 // Wait for one second before the next update
-                std::this_thread::sleep_for(std::chrono::seconds(1));
+                std::this_thread::sleep_for(std::chrono::seconds(kTimePeriodS));
             }
         }
 
