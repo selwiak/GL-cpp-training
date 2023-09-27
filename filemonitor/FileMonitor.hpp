@@ -13,50 +13,49 @@ namespace fs = std::filesystem;
 
 class FileMonitor final : public IFileMonitor {
     public:
-        FileMonitor(const std::string& filePath) : m_filePath(filePath) {}
+        FileMonitor(const std::string& filePath, std::mutex& fileMutex) : m_filePath(filePath), m_fileMutex(fileMutex) {}
 
         void startMonitoring() override {
-        // get last modification time
-        auto lastModified = fs::last_write_time(m_filePath);
-
-        while (true) {
-            // define time to wait
-            constexpr auto kTimePeriodMs{500};
-            // wait till next modification time check
-            std::this_thread::sleep_for(std::chrono::milliseconds(kTimePeriodMs)); 
-
             // get last modification time
-            auto const currentModified = fs::last_write_time(m_filePath);
+            auto lastModified = fs::last_write_time(m_filePath);
 
-            // compare two modification time, if different it's mean file was modified
-            if (currentModified != lastModified) {
-                // lock access to file
-                m_fileMutex.lock();
-                std::cout << std::endl;
-                std::cout << "File was modified!" << std::endl;
-                lastModified = currentModified;
+            while (true) {
+                // define time to wait
+                constexpr auto kTimePeriodMs{500};
+                // wait till next modification time check
+                std::this_thread::sleep_for(std::chrono::milliseconds(kTimePeriodMs));
+                // get last modification time
+                auto const currentModified = fs::last_write_time(m_filePath);
 
-                // print file
-                std::ifstream fileStream(m_filePath);
-                if (fileStream) {
-                    std::string line;
-                    while (std::getline(fileStream, line)) {
-                        std::cout << line << std::endl;
+                {
+                    // lock access to file
+                    std::lock_guard<std::mutex> lock(m_fileMutex);
+
+                    // compare two modification time, if different it's mean file was modified
+                    if (currentModified != lastModified) {
+                        std::cout << std::endl;
+                        std::cout << "File was modified!" << std::endl;
+                        lastModified = currentModified;
+
+                        // print file
+                        std::ifstream fileStream(m_filePath);
+                        if (fileStream) {
+                            std::string line;
+                            while (std::getline(fileStream, line)) {
+                                std::cout << line << std::endl;
+                            }
+                            fileStream.close();
+                        } else {
+                            std::cerr << "error!" << std::endl;
+                        }
                     }
-                    fileStream.close();
-                } else {
-                    std::cerr << "error!" << std::endl;
                 }
-
-                // unlock access to file
-                m_fileMutex.unlock();
             }
-        }
         }
 
     private:
         fs::path m_filePath;
-        std::mutex m_fileMutex;
+        std::mutex& m_fileMutex;
 };
 
 #endif // FILE_MONITOR_HPP

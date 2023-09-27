@@ -10,10 +10,11 @@ int main(int argc, char* argv[]) {
     }
 
     std::string const filePath = argv[1];
+    std::mutex fileMutex;
 
     // Create unique_ptrs to manage the lifetime of FileUpdater and FileMonitor objects
-    const auto fileUpdater = std::make_unique<FileUpdater>(filePath);
-    const auto fileMonitor = std::make_unique<FileMonitor>(filePath);
+    const auto fileUpdater = std::make_unique<FileUpdater>(filePath, fileMutex);
+    const auto fileMonitor = std::make_unique<FileMonitor>(filePath, fileMutex);
 
     // Create threads to run member functions of FileUpdater and FileMonitor
     std::thread updaterThread(&FileUpdater::startUpdating, fileUpdater.get());

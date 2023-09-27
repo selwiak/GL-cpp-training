@@ -13,7 +13,7 @@ namespace fs = std::filesystem;
 
 class FileUpdater final : public IFileUpdater {
     public:
-        FileUpdater(const std::string& filePath) : m_filePath(filePath) {}
+        FileUpdater(const std::string& filePath, std::mutex& fileMutex) : m_filePath(filePath), m_fileMutex(fileMutex) {}
 
         void startUpdating() override {
             // define time to wait
@@ -34,12 +34,12 @@ class FileUpdater final : public IFileUpdater {
 
                 std::string formattedTime = std::asctime(&currentTime);
 
-                // lock access to file
-                m_fileMutex.lock();
-                file << formattedTime;
-                file.flush();
-                // unlock access to file
-                m_fileMutex.unlock();
+                {
+                    // lock access to file
+                    std::lock_guard<std::mutex> lock(m_fileMutex);
+                    file << formattedTime;
+                    file.flush();
+                }
 
                 // Wait for one second before the next update
                 std::this_thread::sleep_for(std::chrono::seconds(kTimePeriodS));
@@ -48,7 +48,7 @@ class FileUpdater final : public IFileUpdater {
 
     private:
         fs::path m_filePath;
-        std::mutex m_fileMutex;
+        std::mutex& m_fileMutex;
 };
 
 #endif // FILE_UPDATER_HPP
