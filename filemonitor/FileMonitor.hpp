@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <chrono>
 #include <thread>
+#include <mutex>
 
 namespace fs = std::filesystem;
 
@@ -29,6 +30,8 @@ class FileMonitor final : public IFileMonitor {
 
             // compare two modification time, if different it's mean file was modified
             if (currentModified != lastModified) {
+                // lock access to file
+                m_fileMutex.lock();
                 std::cout << std::endl;
                 std::cout << "File was modified!" << std::endl;
                 lastModified = currentModified;
@@ -44,12 +47,16 @@ class FileMonitor final : public IFileMonitor {
                 } else {
                     std::cerr << "error!" << std::endl;
                 }
+
+                // unlock access to file
+                m_fileMutex.unlock();
             }
         }
         }
 
     private:
         fs::path m_filePath;
+        std::mutex m_fileMutex;
 };
 
 #endif // FILE_MONITOR_HPP

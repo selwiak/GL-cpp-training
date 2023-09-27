@@ -1,4 +1,5 @@
 #include "FileMonitor.hpp"
+#include "FileUpdater.hpp"
 #include <memory>
 #include <iostream>
 
@@ -10,9 +11,17 @@ int main(int argc, char* argv[]) {
 
     std::string const filePath = argv[1];
 
-    const auto monitor = std::make_unique<FileMonitor>(filePath);
+    // Create unique_ptrs to manage the lifetime of FileUpdater and FileMonitor objects
+    std::unique_ptr<FileUpdater> fileUpdater = std::make_unique<FileUpdater>(filePath);
+    std::unique_ptr<FileMonitor> fileMonitor = std::make_unique<FileMonitor>(filePath);
 
-    monitor->startMonitoring();
+    // Create threads to run member functions of FileUpdater and FileMonitor
+    std::thread updaterThread(&FileUpdater::startUpdating, fileUpdater.get());
+    std::thread monitorThread(&FileMonitor::startMonitoring, fileMonitor.get());
+
+    // Wait for threads to finish execution
+    updaterThread.join();
+    monitorThread.join();
 
     return 0;
 }
