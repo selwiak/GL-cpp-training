@@ -27,27 +27,25 @@ class FileMonitor final : public IFileMonitor {
                 // get last modification time
                 auto const currentModified = fs::last_write_time(m_filePath);
 
-                {
-                    // lock access to file
-                    std::lock_guard<std::mutex> lock(m_fileMutex);
+                // lock access to file
+                std::lock_guard<std::mutex> lock(m_fileMutex);
 
-                    // compare two modification time, if different it's mean file was modified
-                    if (currentModified != lastModified) {
-                        std::cout << std::endl;
-                        std::cout << "File was modified!" << std::endl;
-                        lastModified = currentModified;
+                // compare two modification time, if different it's mean file was modified
+                if (currentModified != lastModified) {
+                    std::cout << std::endl;
+                    std::cout << "File was modified!" << std::endl;
+                    lastModified = currentModified;
 
-                        // print file
-                        std::ifstream fileStream(m_filePath);
-                        if (fileStream) {
-                            std::string line;
-                            while (std::getline(fileStream, line)) {
-                                std::cout << line << std::endl;
-                            }
-                            fileStream.close();
-                        } else {
-                            std::cerr << "error!" << std::endl;
+                    // print file
+                    std::ifstream fileStream(m_filePath);
+                    if (fileStream) {
+                        std::string line;
+                        while (std::getline(fileStream, line)) {
+                            std::cout << line << std::endl;
                         }
+                        fileStream.close();
+                    } else {
+                        std::cerr << "error!" << std::endl;
                     }
                 }
             }
